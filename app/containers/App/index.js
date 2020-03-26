@@ -9,18 +9,28 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-
+import Menu from '../../components/menu/menu';
+import UserList from '../../components/User/userList';
+import BrandList from '../../components/Brand/brandList';
+import TrickList from '../../components/Tricks/trickList';
+import ChallengeList from '../../components/Challenge/challengeList';
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <div
+      style={{
+        margin: 'auto',
+        width: ' 50%',
+        padding: ' 10px',
+      }}
+    >
+      <Menu />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
+        <Route path="/" exact component={BrandList} />
+        <Route path="/userslist" exact component={UserList} />
+        <Route path="/trickslist" exact component={TrickList} />
+        <Route path="/challengeslist" exact component={ChallengeList} />
       </Switch>
       <GlobalStyle />
     </div>
