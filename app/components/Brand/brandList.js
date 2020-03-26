@@ -1,22 +1,13 @@
 /* eslint-disable indent */
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { Button } from 'react-bootstrap';
 import { TableContainer, TextField, Button, Table } from '@material-ui/core';
-// import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-
-// import { useTheme } from '@material-ui/core/styles';
-// import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-// import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-// import TablePagination from '@material-ui/core/TablePagination';
-// import FirstPageIcon from '@material-ui/icons/FirstPage';
-// import LastPageIcon from '@material-ui/icons/LastPage';
 import TableFooter from '@material-ui/core/TableFooter';
 import Pagination from '@material-ui/lab/Pagination';
 import classes from './brand.module.css';
