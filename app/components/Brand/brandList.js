@@ -39,9 +39,9 @@ class BrandList extends Component {
   getBrands() {
     const params = `?page=${this.state.page}`;
     axios.get(`https://localhost:44306/api/Brands/${params}`).then(response => {
-      const brands = response.data;
+      const brandsIcoming = response.data;
 
-      this.setState({ brands });
+      this.setState({ brands: brandsIcoming });
     });
   }
 

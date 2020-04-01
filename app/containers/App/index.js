@@ -15,6 +15,7 @@ import BrandList from '../../components/Brand/brandList';
 import TrickList from '../../components/Tricks/trickList';
 import ChallengeList from '../../components/Challenge/challengeList';
 import GlobalStyle from '../../global-styles';
+import Brands from '../Brands/index';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/userslist" exact component={UserList} />
         <Route path="/trickslist" exact component={TrickList} />
         <Route path="/challengeslist" exact component={ChallengeList} />
+        <Route path="/example" exact component={Brands} />
       </Switch>
       <GlobalStyle />
     </div>
