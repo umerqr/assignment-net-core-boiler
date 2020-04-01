@@ -16,9 +16,11 @@ export function defaultAction() {
     type: DEFAULT_ACTION,
   };
 }
+// Fetch actions below
 // this should call to saga
-export const fetchBrands = () => ({
+export const fetchBrands = pageNo => ({
   type: FETCH_BRANDS,
+  pageNo,
 });
 
 // after saga this should fetch the data
@@ -34,3 +36,4 @@ export function fetchBrandError(error) {
     error,
   };
 }
+// Page Change actions below

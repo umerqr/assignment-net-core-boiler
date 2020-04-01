@@ -11,7 +11,6 @@ import {
 } from './constants';
 
 export const initialState = {
-  page: 1,
   brands: [],
 };
 
