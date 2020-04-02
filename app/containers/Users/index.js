@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 /**
  *
- * Brands
+ * Users
  *
  */
 
@@ -13,7 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { TableContainer, TextField, Button, Table } from '@material-ui/core';
+import { TableContainer, TextField, Button } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -22,61 +22,50 @@ import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import TableFooter from '@material-ui/core/TableFooter';
 import Pagination from '@material-ui/lab/Pagination';
-import * as actionTypes from './actions';
 import saga from './saga';
-import * as selecters from './selectors';
 import reducer from './reducer';
+import * as actionTypes from './actions';
+import * as selecters from './selectors';
+// import classes from './user.module.css';
 
-export const Brands = ({
-  brands,
+export const Users = ({
+  users,
   page,
-  onFetchBrands,
-  brandName,
-  onChangeBrandName,
-  onAddBrands,
-  searchBrandName,
-  onSearchBrandName,
-  onChangeSearch
+  onFetchUsers,
+  userName,
+  onChangeUserName,
+  onAddUsers,
+  searchUserName,
+  onSearchUserName,
+  onChangeSearch,
 }) => {
-
-  useInjectReducer({ key: 'brands', reducer });
-  useInjectSaga({ key: 'brands', saga });
+  useInjectReducer({ key: 'users', reducer });
+  useInjectSaga({ key: 'users', saga });
   const [columnToSearch] = useState('');
   const [pageCount] = useState(20);
   const [pageNo, setPageNo] = useState(1);
-  // const [brandName, setBrandName] = useState('');
-  const createHandler = () => {
-    onAddBrands();
-  }
   const handleChangePage = async (event, newPage) => {
     setPageNo({ pageNo: newPage });
-    return onFetchBrands(newPage)
-    // onFetchBrands(pageNo);
+    return onFetchUsers(newPage);
+  };
+  const createHandler = () => {
+    onAddUsers();
   };
   useEffect(() => {
-
-    onFetchBrands(pageNo);
+    onFetchUsers(pageNo);
   }, []);
-
-
-
   return (
     <div>
       <Helmet>
+        <title>Users</title>
+        <meta name="description" content="Description of Users" />
       </Helmet>
       <div>
-        <TextField
-          value={searchBrandName}
-          onChange={onChangeSearch}
-        />
-
+        <TextField value={searchUserName} onChange={onChangeSearch} />
         <Select native value={columnToSearch}>
-          <option value="name">Brand Name</option>
+          <option value="name">User Name</option>
         </Select>
-        <Button
-          color="primary"
-          onClick={onSearchBrandName}
-        >
+        <Button color="primary" onClick={onSearchUserName}>
           Search Server
         </Button>
       </div>
@@ -93,17 +82,17 @@ export const Brands = ({
             <TableRow>
               <TableCell>Id</TableCell>
               <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Challenge Count</TableCell>
+              <TableCell align="right">Trick Count</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {brands.map(row => (
+            {users.map(row => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
                 <TableCell align="right"> {row.name}</TableCell>
-                <TableCell align="right"> {row.challengeCount}</TableCell>
+                <TableCell align="right"> {row.trickCount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -119,60 +108,52 @@ export const Brands = ({
       </TableContainer>
 
       <div
-        // className={classes.content}
-        style={{ maxWidth: '650px' }}
+      //  className={classes.content}
       >
-        <h1>Add a Brand</h1>
-        <div>Brand Name: </div>
-        <input
-          type="text"
-          value={brandName}
-          onChange={onChangeBrandName}
-        />
+        <h1>Add a User</h1>
+        <div>Users Name: </div>
+        <input type="text" value={userName} onChange={onChangeUserName} />
         <br />
-
-        <Button
-          color="primary"
-          onClick={createHandler}
-        >
-          Create Brand
+        <Button color="primary" onClick={createHandler}>
+          Add User
         </Button>
       </div>
     </div>
   );
 };
 
-Brands.propTypes = {
+Users.propTypes = {
   // dispatch: PropTypes.func.isRequired,
-  onFetchBrands: PropTypes.func,
-  onChangeBrandName: PropTypes.func,
-  onAddBrands: PropTypes.func,
-  onSearchBrandName: PropTypes.func,
+  onFetchUsers: PropTypes.func,
+  onChangeUserName: PropTypes.func,
+  onAddUsers: PropTypes.func,
+  onSearchUserName: PropTypes.func,
   onChangeSearch: PropTypes.func,
-  brandName: PropTypes.string,
-  brands: PropTypes.array,
+  userName: PropTypes.string,
+  users: PropTypes.array,
   page: PropTypes.number,
-  searchBrandName: PropTypes.string,
+  searchUserName: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  brands: selecters.makeSelectBrands(),
-  brandName: selecters.makeBrandName(),
-  searchBrandName: selecters.makeSearchName(),
+  users: selecters.makeSelectUsers(),
+  userName: selecters.makeUserName(),
+  searchUserName: selecters.makeSearchName(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFetchBrands: (pageNo) => dispatch(actionTypes.fetchBrands(pageNo)),
-  onChangeBrandName: evt => dispatch(actionTypes.changeBrandName(evt.target.value)),
-  onChangeSearch: evt => dispatch(actionTypes.changeSearchName(evt.target.value)),
-  onAddBrands: () => dispatch(actionTypes.addBrands()),
-  onSearchBrandName: () => dispatch(actionTypes.searchBrands()),
-
-})
+const mapDispatchToProps = dispatch => ({
+  onFetchUsers: pageNo => dispatch(actionTypes.fetchUsers(pageNo)),
+  onChangeUserName: event =>
+    dispatch(actionTypes.changeUserName(event.target.value)),
+  onChangeSearch: evt =>
+    dispatch(actionTypes.changeSearchName(evt.target.value)),
+  onAddUsers: () => dispatch(actionTypes.addUsers()),
+  onSearchUserName: () => dispatch(actionTypes.searchUsers()),
+});
 
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(Brands);
+export default compose(withConnect)(Users);
