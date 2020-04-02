@@ -20,11 +20,15 @@ const makeSelectBrands = () =>
     selectBrandsDomain,
     substate => substate.brands,
   );
-// const makeSelectPage = () =>
-//   createSelector(
-//     selectBrandsDomain,
-//     substate => substate.page,
-//   );
-
+const makeBrandName = () =>
+  createSelector(
+    selectBrandsDomain,
+    substate => substate.brandsName,
+  );
+const makeSearchName = () =>
+  createSelector(
+    selectBrandsDomain,
+    substate => substate.searchBrandName,
+  );
 export default makeSelectBrands;
-export { selectBrandsDomain, makeSelectBrands };
+export { selectBrandsDomain, makeSelectBrands, makeBrandName, makeSearchName };

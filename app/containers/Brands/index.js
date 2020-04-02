@@ -24,19 +24,20 @@ import TableFooter from '@material-ui/core/TableFooter';
 import Pagination from '@material-ui/lab/Pagination';
 import * as actionTypes from "./actions";
 import saga from './saga';
-import {
-  makeSelectBrands,
-  //  makeSelectPage
-} from './selectors';
+import * as selecters from './selectors';
 import reducer from './reducer';
 
-export const Brands = ({ brands, page, onFetchBrands }) => {
+export const Brands = ({ brands, page, onFetchBrands, brandName, onChangeBrandName, onAddBrands, searchBrandName, onSearchBrandName, onChangeSearch }) => {
+
   useInjectReducer({ key: 'brands', reducer });
   useInjectSaga({ key: 'brands', saga });
-  const [search] = useState('');
   const [columnToSearch] = useState('');
   const [pageCount] = useState(20);
   const [pageNo, setPageNo] = useState(1);
+  // const [brandName, setBrandName] = useState('');
+  const createHandler = () => {
+    onAddBrands();
+  }
   const handleChangePage = async (event, newPage) => {
     setPageNo({ pageNo: newPage });
     return onFetchBrands(newPage)
@@ -47,14 +48,16 @@ export const Brands = ({ brands, page, onFetchBrands }) => {
     onFetchBrands(pageNo);
   }, []);
 
+
+
   return (
     <div>
       <Helmet>
       </Helmet>
       <div>
         <TextField
-          value={search}
-        // onChange={e => setSearch({ search: e.target.value })}
+          value={searchBrandName}
+          onChange={onChangeSearch}
         />
 
         <Select native value={columnToSearch}>
@@ -62,7 +65,7 @@ export const Brands = ({ brands, page, onFetchBrands }) => {
         </Select>
         <Button
           color="primary"
-        //  onClick={this.searchServer}
+          onClick={onSearchBrandName}
         >
           Search Server
         </Button>
@@ -113,14 +116,14 @@ export const Brands = ({ brands, page, onFetchBrands }) => {
         <div>Brand Name: </div>
         <input
           type="text"
-        // value={this.state.brandName}
-        // onChange={event => this.setState({ brandName: event.target.value })}
+          value={brandName}
+          onChange={onChangeBrandName}
         />
         <br />
 
         <Button
           color="primary"
-        // onClick={this.createHandler}
+          onClick={createHandler}
         >
           Create Brand
         </Button>
@@ -131,18 +134,29 @@ export const Brands = ({ brands, page, onFetchBrands }) => {
 
 Brands.propTypes = {
   // dispatch: PropTypes.func.isRequired,
+  onFetchBrands: PropTypes.func,
+  onChangeBrandName: PropTypes.func,
+  onAddBrands: PropTypes.func,
+  onSearchBrandName: PropTypes.func,
+  onChangeSearch: PropTypes.func,
+  brandName: PropTypes.string,
   brands: PropTypes.array,
   page: PropTypes.number,
-  onFetchBrands: PropTypes.func,
+  searchBrandName: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  brands: makeSelectBrands(),
-  // page: makeSelectPage(),
+  brands: selecters.makeSelectBrands(),
+  brandName: selecters.makeBrandName(),
+  searchBrandName: selecters.makeSearchName(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchBrands: (pageNo) => dispatch(actionTypes.fetchBrands(pageNo)),
+  onChangeBrandName: evt => dispatch(actionTypes.changeBrandName(evt.target.value)),
+  onChangeSearch: evt => dispatch(actionTypes.changeSearchName(evt.target.value)),
+  onAddBrands: () => dispatch(actionTypes.addBrands()),
+  onSearchBrandName: () => dispatch(actionTypes.searchBrands()),
 
 })
 

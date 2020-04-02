@@ -39,9 +39,10 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url) {
+
+export default function postRequest(posturl, options) {
   return axios
-    .get(url)
+    .post(posturl, options)
     .then(checkStatus)
     .then(parseJSON);
 }
