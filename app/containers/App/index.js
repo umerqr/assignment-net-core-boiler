@@ -12,11 +12,12 @@ import { Switch, Route } from 'react-router-dom';
 import Menu from '../../components/menu/menu';
 // import UserList from '../../components/User/userList';
 // import BrandList from '../../components/Brand/brandList';
-import TrickList from '../../components/Tricks/trickList';
-import ChallengeList from '../../components/Challenge/challengeList';
+import TrickList from '../../components/Trick/trickList';
+// import ChallengeList from '../../components/Challenge/challengeList';
 import GlobalStyle from '../../global-styles';
 import Brands from '../Brands/index';
 import Users from '../Users/index';
+import Challenges from '../Challenges/index';
 
 export default function App() {
   return (
@@ -32,8 +33,8 @@ export default function App() {
         <Route path="/" exact component={Brands} />
         <Route path="/userslist" exact component={Users} />
         <Route path="/trickslist" exact component={TrickList} />
-        <Route path="/challengeslist" exact component={ChallengeList} />
-        {/* <Route path="/example" exact component={Users} /> */}
+        <Route path="/challengeslist" exact component={Challenges} />
+        {/* <Route path="/example" exact component={Challenges} /> */}
       </Switch>
       <GlobalStyle />
     </div>
