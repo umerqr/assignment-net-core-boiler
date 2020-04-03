@@ -50,7 +50,7 @@ export const Brands = ({
   }
   const handleChangePage = async (event, newPage) => {
     setPageNo({ pageNo: newPage });
-    return onFetchBrands(newPage)
+    return onFetchBrands(newPage);
     // onFetchBrands(pageNo);
   };
   useEffect(() => {

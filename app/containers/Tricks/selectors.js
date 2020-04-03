@@ -18,8 +18,35 @@ const selectTricksDomain = state => state.tricks || initialState;
 const makeSelectTricks = () =>
   createSelector(
     selectTricksDomain,
-    substate => substate,
+    substate => substate.tricks,
+  );
+const makeTrickName = () =>
+  createSelector(
+    selectTricksDomain,
+    substate => substate.tricksName,
+  );
+const makeUserId = () =>
+  createSelector(
+    selectTricksDomain,
+    substate => substate.userIdToAdd,
+  );
+const makeChallengeId = () =>
+  createSelector(
+    selectTricksDomain,
+    substate => substate.challengeIdToAdd,
+  );
+const makeSearchName = () =>
+  createSelector(
+    selectTricksDomain,
+    substate => substate.searchTrickName,
   );
 
 export default makeSelectTricks;
-export { selectTricksDomain };
+export {
+  selectTricksDomain,
+  makeTrickName,
+  makeSearchName,
+  makeSelectTricks,
+  makeUserId,
+  makeChallengeId,
+};
